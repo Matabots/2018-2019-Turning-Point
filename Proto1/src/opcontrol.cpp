@@ -30,7 +30,5 @@
  * This task should never exit; it should end with some kind of infinite loop, even if empty.
  */
 void operatorControl() {
-	while (1) {
-		delay(20);
-	}
+	delay(50);
 }
