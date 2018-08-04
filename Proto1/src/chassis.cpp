@@ -1,22 +1,22 @@
 #include "chassis.h"
 #include "control.h"
 chassis::chassis(){
-  this->wheelDiameter = 4; //inches
+  this->wheelDiameter = 0; //inches
   //this->chassisVelPID = new pid(10,3.48,896.9,0.0);
-  this->chassisVelPID = new pid(1.5,0.0,0.0,0.0);
+  this->chassisVelPID = new pid(0,0.0,0.0,0.0);
   //this->chassisPosPID = new pid(0.45,0.0,0.0125,0.0);//4.0,0,0
                           //0.45                      //0.85,0,0 for gyro turn
   // this->chassisPosPID = new pid(0.85,0.024,0.016,0.0);
   // this->chassisPosPID->set_deadband(10);
-  this->chassisPosPID = new pid(7.0,0.0,0.0,0.0); //3.5,0...
-  this->chassisPosPID->set_deadband(5);
-  this->chassisGyroPID = new pid(6.0,0.0,10.0,0.0);//60
-  this->chassisLeftLinePID = new pid(10.0,0.0,0.0,0.0);
-  this->chassisRightLinePID = new pid(10.0,0.0,0.0,0.0);
+  this->chassisPosPID = new pid(0,0.0,0.0,0.0); //3.5,0...
+  this->chassisPosPID->set_deadband(0);
+  this->chassisGyroPID = new pid(0,0.0,0.0,0.0);//60
+  this->chassisLeftLinePID = new pid(0.0,0.0,0.0,0.0);
+  this->chassisRightLinePID = new pid(0.0,0.0,0.0,0.0);
   //this->chassisGyroPID->set_toleranceI(25);
-  this->chassisGyroPID->set_deadband(7);
-  this->chassisLeftLinePID->set_deadband(200);
-  this->chassisRightLinePID->set_deadband(200);
+  this->chassisGyroPID->set_deadband(0);
+  this->chassisLeftLinePID->set_deadband(0);
+  this->chassisRightLinePID->set_deadband(0);
   this->currPos.x = 0;
   this->currPos.y = 0;
   waypoints = new path(currPos);
