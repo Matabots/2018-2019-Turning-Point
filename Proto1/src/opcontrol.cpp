@@ -11,6 +11,7 @@
  */
 
 #include "main.h"
+#include "robot.h"
 
 /*
  * Runs the user operator control code. This function will be started in its own task with the
@@ -30,6 +31,7 @@
  * This task should never exit; it should end with some kind of infinite loop, even if empty.
  */
 void operatorControl() {
-	robot protoDJG = new robot();
+	extern robot protoDJG;
+	
 	delay(50);
 }
