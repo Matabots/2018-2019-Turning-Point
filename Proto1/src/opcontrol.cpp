@@ -32,6 +32,6 @@
  */
 void operatorControl() {
 	extern robot protoDJG;
-	
+
 	delay(50);
 }
