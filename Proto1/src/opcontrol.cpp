@@ -31,7 +31,10 @@
  * This task should never exit; it should end with some kind of infinite loop, even if empty.
  */
 void operatorControl() {
-	extern robot protoDJG;
-
-	delay(50);
+	extern robot proto1;
+	while (true)
+	{
+		proto1.remoteListen();
+	  // delay(50);
+	}
 }

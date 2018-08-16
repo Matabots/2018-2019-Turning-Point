@@ -12,17 +12,8 @@ control::control(){
   this->team = 0;
 };
 
-void control::setupcontrol(int autonLift, int autonAbort, int clearStacked, int bigLift, int smallLift, int goalLift, int roller,int team){
-    //setup all controller bindings here
-    this->bigLiftVar = bigLift;
-    this->smallLift = smallLift; //8R toggle
-    this->clearStack = clearStacked;//8L wipe the stack
-    this->goalLifter = goalLift; //7U up 7d down
-    this->roller = roller; //toggle buttons intake 8u 8d outtake
-    this->autonLift = autonLift;
-    this->autonAbort = autonAbort; //7right
-    this->team = team;
-    //7 left to set loading position
+void control::setupcontrol(){
+  
   };
 //return functions here
   int control::autonLiftProcessAdd(){

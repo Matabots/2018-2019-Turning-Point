@@ -19,85 +19,20 @@
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 ///////////////////////////////////////this function will often be changed and is at the top///////////////////////////////////////////////
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-void robot::setupCSUN1(){
-      //add motors, sensors, reset values for sensors here
-  ///////////////////////////////////////////
-  ////////////// BEA (OLD) ////////////////////////
-      // this->analog->set_gyro(analog8, 0);
-      // this->analog->set_potentiometer(analog2);
-      // this->digital->set_RightEncoder(digital2, digital3, false);
-      // this->digital->set_LiftEncoder(digital11, digital12, false);
-      // this->digital->set_LeftEncoder(digital8, digital9, true);
-      // this->digital->set_coneLiftEncoder(digital4, digital5, false);
-      // this->drive->addLeftMotor(motor2, false);
-      // this->drive->addLeftMotor(motor8, false);
-      // this->drive->addRightMotor(motor3, true);
-      // this->drive->addRightMotor(motor9, false);
-      // this->arm->addPrimaryLift(motor7, false);
-      // this->arm->addPrimaryLift(motor6, true);
-      // this->arm->addSecondaryLift(motor5, false);
-      // this->ef->set_Port(motor4);
-      // this->ef->set_Direction(false);
-
-  ///////////////////////////////////////////
-  ////////////// CSUN1 Carbon  ////////////////////////
-      this->remote->setupcontrol(8, 7, 8, 5, 5, 6, 6, 1);
-      this->analog->set_gyro(analog8, 0);
-      this->analog->set_potentiometer(analog1);
-      this->digital->set_leftLimitSwitch(digital5);
-      this->digital->set_rightLimitSwitch(digital6);
-      this->analog->set_jukeSwitch(analog7);
-      this->analog->set_leftLineSensor(analog4);
-      this->analog->set_rightLineSensor(analog5);
+void robot::setupBot(){
+      this->remote->setupcontrol();
       this->digital->set_leftLiftEncoder(digital3, digital4, false);
-      this->digital->set_rightLiftEncoder(digital11, digital12, true);
-      this->drive->addLeftMotor(motor2, false);
-      this->drive->addLeftMotor(motor3, true);
-      this->drive->addRightMotor(motor8, false);
+      this->digital->set_rightLiftEncoder(digital1, digital2, false);
+      this->drive->addLeftMotor(motor1, true);
+      this->drive->addLeftMotor(motor2, true);
+      this->drive->addLeftMotor(motor3, false);
+      this->drive->addRightMotor(motor7, false);
       this->drive->addRightMotor(motor9, true);
-      this->arm->addPrimaryLift(motor4, false);
-      this->arm->addPrimaryLift(motor7, true);
-      this->arm->addSecondaryLift(motor6, true);
-      this->arm->addGoalLift(motor1, true);
-      this->arm->addGoalLift(motor10, false);
-      this->ef->addRoller(motor5, true);
-      analogCalibrate(this->analog->get_leftLineSensor().get_lineSensor());
-      analogCalibrate(this->analog->get_rightLineSensor().get_lineSensor());
-      // analogCalibrate(this->analog->get_jukeSwitch().get_Potentiometer());
-      // this->analog->get_jukeSwitch().reset();
+      this->drive->addRightMotor(motor10, true);
 
       imeReset(0);
       imeReset(1);
       imeReset(2);
-};
-void robot::setupCSUN2(){
-      //add motors, sensors, reset values for sensors here
-      this->remote->setupcontrol(6, 7, 8, 7, 8, 5, 8, 2);
-      this->analog->set_gyro(analog8, 0);
-      this->analog->set_potentiometer(analog1);
-      this->digital->set_leftLimitSwitch(digital4);
-      this->analog->set_leftLineSensor(analog4);
-      this->analog->set_rightLineSensor(analog5);
-      this->digital->set_rightLiftEncoder(digital7, digital8, true);
-      this->digital->set_leftLiftEncoder(digital5, digital6, false);
-      this->drive->addLeftMotor(motor2, false);
-      this->drive->addLeftMotor(motor3, true);
-      this->drive->addRightMotor(motor8, false);
-      this->drive->addRightMotor(motor9, true);
-
-      this->arm->addPrimaryLift(motor4, false);
-      this->arm->addPrimaryLift(motor7, true);
-      this->arm->addSecondaryLift(motor6, true);
-      this->arm->addGoalLift(motor1, true);
-      this->arm->addGoalLift(motor10, false);
-      this->ef->addRoller(motor5, true);
-      imeReset(0);
-      imeReset(1);
-
-            this->drive->getLeftMotorAt(0)->set_imeReversed(true);
-            this->drive->getRightMotorAt(0)->set_imeReversed(false);
-       //imeReset(2);
-      // imeReset(1);
 };
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -172,20 +107,8 @@ void robot::setupCSUN2(){
 ////////////////////////////////////////////////////////////These are the operator control functions////////////////////////////////////////
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
     void robot::remoteListen(){
-       joystickInputs();
-      autonLiftProcess();
-      autoAbort();
+      joystickInputs();
       printf("Remote Listening\n");
-      if(!autoStacking){
-         rollerButtons();
-         bigLift();
-         smallLift();
-         goalLift();
-      }
-      // if(this->remote->get_team() == 1)
-      // {
-      //   setLiftAboveStation();
-      // }
     };
     void robot::uart()
     {

@@ -13,7 +13,7 @@ private:
     int team;
 public:
     control();
-    void setupcontrol(int autonLift, int autonAbort, int clearStacked, int bigLift, int smallLift, int goalLift, int roller, int team);
+    void setupcontrol();
     int autonLiftProcessAdd();
     int autonLiftProcessSubtract();
     int autoLiftAbort();

@@ -11,6 +11,7 @@
  */
 
 #include "main.h"
+#include "robot.h"
 
 /*
  * Runs pre-initialization code. This function will be started in kernel mode one time while the
@@ -36,5 +37,10 @@ void initializeIO() {
  * will not start. An autonomous mode selection menu like the pre_auton() in other environments
  * can be implemented in this task if desired.
  */
+ robot proto1;
 void initialize() {
+  int count = imeInitializeAll();
+  proto1 = robot();
+  proto1.setupBot();
+
 }
