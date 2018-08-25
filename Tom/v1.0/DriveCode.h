@@ -2,26 +2,58 @@
 #include "TomMain.c"
 #include "RobotModules.h"
 int deadzone = 15;
+bool transBool = true;
+int lag = 50;
+
+void butLag()
+{
+	wait10Msec(lag);
+}
 void halt()
 {
 	rightMotors(0);
 	leftMotors(0);
 }
-
+void transmission()
+{
+	if (vexRT[remote.transmission] == 1)
+	{
+		if(transBool)
+		{
+			transBool = false;
+			SensorValue[TransPneu] = 1;
+			butLag();
+		}
+		else
+		{
+			transBool = true;
+			SensorValue[TransPneu] = 0;
+			butLag();
+		}
+	}
+}
 void chassisCode()
 {
-	if(abs(vexRT[remote.rightDrive]) > deadzone || abs(vexRT[remote.leftDrive]) > deadzone)
+	if(abs(vexRT[remote.rightDrive]) > deadzone)
 	{
-			rightMotors(remote.rightDrive);
-			leftMotors(remote.leftDrive);
+		rightMotors(vexRT[remote.rightDrive]);
 	}
 	else
 	{
-		halt();
+		rightMotors(0);
+	}
+	if(abs(vexRT[remote.leftDrive]) > deadzone)
+	{
+		leftMotors(vexRT[remote.leftDrive]);
+	}
+	else
+	{
+		leftMotors(0);
 	}
 }
 void buttonCode()
 {
+	transmission();
 }
 void drive()
 {

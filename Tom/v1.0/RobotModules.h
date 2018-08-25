@@ -7,6 +7,7 @@ struct Remote
 	TVexJoysticks flywheel;
 	TVexJoysticks rightDrive;
 	TVexJoysticks	leftDrive;
+	TVexJoysticks transmission;
 };
 
 Remote remote;
@@ -18,15 +19,20 @@ void setupRemote()
 	remote.flywheel = Btn6U;
 	remote.rightDrive = Ch2;
 	remote.leftDrive = Ch3;
+	remote.transmission = Btn6D;
+}
+void setupSens()
+{
+	SensorValue[TransPneu] = 0;
 }
 
-void rightMotors(float power)
+void rightMotors(int power)
 {
 	motor[rightDrive1] = power;
 	motor[rightDrive2] = power;
 	motor[rightDrive3] = power;
 }
-void leftMotors(float power)
+void leftMotors(int power)
 {
 	motor[leftDrive1] = power;
 	motor[leftDrive2] = power;
