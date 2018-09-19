@@ -55,8 +55,24 @@ void buttonCode()
 {
 	transmission();
 }
+void intakeCode()
+{
+	if(vexRT[remote.intakeBackward] == 1)
+	{
+		intake(127);
+	}
+	else if(vexRT[remote.intakeForward] == 1)
+	{
+		intake(-127);
+	}
+	else
+	{
+		intake(0);
+	}
+}
 void drive()
 {
 	chassisCode();
 	buttonCode();
+	intakeCode();
 }

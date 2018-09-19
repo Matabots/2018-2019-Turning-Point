@@ -1,4 +1,5 @@
 #pragma config(Sensor, dgtl1,  TransPneu,      sensorDigitalOut)
+#pragma config(Motor,  port1,           intakeMot,     tmotorVex393_HBridge, openLoop)
 #pragma config(Motor,  port2,           rightDrive1,   tmotorVex393_MC29, openLoop, reversed)
 #pragma config(Motor,  port3,           rightDrive2,   tmotorVex393_MC29, openLoop)
 #pragma config(Motor,  port4,           rightDrive3,   tmotorVex393_MC29, openLoop, reversed)

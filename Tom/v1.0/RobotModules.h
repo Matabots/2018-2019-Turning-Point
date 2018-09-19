@@ -38,3 +38,8 @@ void leftMotors(int power)
 	motor[leftDrive2] = power;
 	motor[leftDrive3] = power;
 }
+
+void intake(int power)
+{
+	motor[intakeMot] = power;
+}
