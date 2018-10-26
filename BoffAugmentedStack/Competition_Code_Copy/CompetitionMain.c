@@ -1,3 +1,4 @@
+#pragma config(UART_Usage, UART1, uartUserControl, baudRate9600, IOPins, None, None)
 #pragma config(Sensor, in1,    Gyro,           sensorGyro)
 #pragma config(Sensor, in2,    lineSens1,           sensorLineFollower)
 #pragma config(Sensor, in3,    lineSens2,           sensorLineFollower)
@@ -43,6 +44,7 @@
 #include "Commands.h"
 #include "v2DriveControls.h"
 #include "v2BoffPIDStackerTest.c" //drive
+#include "PixyUart.h"
 
 /*---------------------------------------------------------------------------*/
 /*                          Pre-Autonomous Functions                         */

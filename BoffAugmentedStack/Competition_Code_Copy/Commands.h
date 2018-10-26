@@ -5,7 +5,6 @@
 #include "AutonCommands.h"
 #include "CompetitionMain.c"
 
-
 void tasksFinished()
 {
 	while(!atGyro)

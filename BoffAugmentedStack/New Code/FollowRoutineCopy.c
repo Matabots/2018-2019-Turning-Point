@@ -233,30 +233,33 @@ task FollowRoutine(){
 
     while(true){
 		//If Cone is not there
-
-    if(XC == -1 || XC == 5)
+    if(XC == -1 || XC == 1)
     	continue;
-   //If the cone is to the left
-	 else if(XC == 0){
-			rotateRight_Adv();
-			XC = 5;
-	 }
-	  else if(XC == 1){
-	  	rotateRight_Adv();
-	    XC = 5;
-	  }
-		//If Cone is in the front
-	//	else if(XC == 2)
-		//	moveUP();
-		//If Cone is to the right
-		else if(XC == 3){
-			rotateLeft_Adv();
-		  XC = 5;
-		}
-	  else if(XC == 4){
-			rotateLeft_Adv();
-			XC = 5;
-	  }
+   else
+   {
+     runRoutine(XC);
+   }
+ //  //If the cone is to the left
+	// else if(XC == 0){
+	//		rotateRight_Adv();
+	//		XC = 5;
+	// }
+	//  else if(XC == 1){
+	//  	rotateRight_Adv();
+	//    XC = 5;
+	//  }
+	//	//If Cone is in the front
+	////	else if(XC == 2)
+	//	//	moveUP();
+	//	//If Cone is to the right
+	//	else if(XC == 3){
+	//		rotateLeft_Adv();
+	//	  XC = 5;
+	//	}
+	//  else if(XC == 4){
+	//		rotateLeft_Adv();
+	//		XC = 5;
+	//  }
 		wait1Msec(200);
 	}
 }

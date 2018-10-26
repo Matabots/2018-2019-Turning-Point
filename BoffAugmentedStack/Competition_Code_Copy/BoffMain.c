@@ -1,5 +1,6 @@
 #include "AutonCommands.h"
 #include "Commands.h"
+#include "PixyUart.h"
 
 void resetEnc()
 {
@@ -39,6 +40,11 @@ void auton()
 	startTask(runMobile);
 	startTask(runLiftControl);
 
+
+	startTask(UARTReceive);
+	//startTask(SensorReader);
+	startTask(ToggleFollow);
+	startTask(FollowRoutine);
   //testTask();
-  autonGo();
+  //autonGo();
 }
