@@ -7,6 +7,7 @@
 #include <SPI.h>
 #include <Pixy.h>
 #include <SoftwareSerial.h>
+#include <math.h>
 
 #define BUFFER_SIZE 32
 #define FRAME_SKIP 10
@@ -27,6 +28,12 @@ int send_enable;
 int sent_flag;
 int HEIGHT_AVG_INDEX;
 int HEIGHT_AVG_BUFFER[HEIGHT_BUFFER_SIZE];
+int xDiam;
+int fromCentX;
+int yDiam;
+int fromBott;
+int knownHeight = 70;
+int knownDist = 20;
 /*========================================================
   Function Status:
 
@@ -112,37 +119,59 @@ void loop() {
 
              int avg_height = getAverage(HEIGHT_AVG_BUFFER,HEIGHT_BUFFER_SIZE);
 
-             if(avg_height >= S1_LOWER_HEIGHT && avg_height <= S1_HIGHER_HEIGHT){
-             //if(pixy.blocks[j].height >= S1_LOWER_HEIGHT && pixy.blocks[j].height <= S1_HIGHER_HEIGHT){
+             if(avg_height >= S1_LOWER_HEIGHT && avg_height <= S1_HIGHER_HEIGHT)
+             {
+               if(pixy.blocks[j].height >= S1_LOWER_HEIGHT && pixy.blocks[j].height <= S1_HIGHER_HEIGHT)
+               {
+                 //for calibration=======================
+                 // for (x=0; x<blocks; x++)
+                 // {
+                 // sprintf(buf, "  block %d: Width: %d", j, pixy.blocks[j].height);
+                 // Serial.print(buf);
+                 // pixy.blocks[j].print();
+                 // }
+                 // mySerial.write(buf);
+                 //======================================
 
-              //0 Range
-              if(pixy.blocks[j].x >= 0 && pixy.blocks[j].x <= 60){
-                sprintf(buf,"0");
-                mySerial.write(buf);
-              }
 
-              //1 Range
-              else if(pixy.blocks[j].x > 60 && pixy.blocks[j].x <= 120){
-                sprintf(buf,"1");
-                mySerial.write(buf);
-              }
+                 // getAngle(pixy.blocks[j]);
 
-              //2 Range
-              else if(pixy.blocks[j].x > 120 && pixy.blocks[j].x <= 190){
-                sprintf(buf,"2");
-                mySerial.write(buf);
-              }
+                 //get the angle_outside method
+                 // xDiam = (pixy.blocks[j].width/2);
+                 // fromCentX = pixy.blocks[j].x + xDiam;
+                 // yDiam = (pixy.blocks[j].height/2);
+                 // fromBott = pixy.blocks[j].y - yDiam;
+                 // degree = atan((diameter+fromCent)/fromBott)
+                 // sprintf(buf,degree);
 
-              //3 Range
-              else if(pixy.blocks[j].x > 190 && pixy.blocks[j].x <= 250){
-                sprintf(buf,"3");
-                mySerial.write(buf);
-              }
-
-             //4 Range
-              else if(pixy.blocks[j].x > 250){
-                sprintf(buf,"4");
-                mySerial.write(buf);
+             //  //0 Range
+             //  if(pixy.blocks[j].x >= 0 && pixy.blocks[j].x <= 60){
+             //    sprintf(buf,"0");
+             //    mySerial.write(buf);
+             //  }
+             //
+             //  //1 Range
+             //  else if(pixy.blocks[j].x > 60 && pixy.blocks[j].x <= 120){
+             //    sprintf(buf,"1");
+             //    mySerial.write(buf);
+             //  }
+             //
+             //  //2 Range
+             //  else if(pixy.blocks[j].x > 120 && pixy.blocks[j].x <= 190){
+             //    sprintf(buf,"2");
+             //    mySerial.write(buf);
+             //  }
+             //
+             //  //3 Range
+             //  else if(pixy.blocks[j].x > 190 && pixy.blocks[j].x <= 250){
+             //    sprintf(buf,"3");
+             //    mySerial.write(buf);
+             //  }
+             //
+             // //4 Range
+             //  else if(pixy.blocks[j].x > 250){
+             //    sprintf(buf,"4");
+             //    mySerial.write(buf);
               }
           //===============================================================================================
       }
