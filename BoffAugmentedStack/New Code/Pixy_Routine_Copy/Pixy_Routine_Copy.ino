@@ -19,6 +19,7 @@
 #define S2_LOWER_HEIGHT 79
 #define S2_HIGHER_HEIGHT 199
 #define HEIGHT_BUFFER_SIZE 5
+#define MID_VIEW 160
 Pixy pixy;
 
 //serial variable for transmitting data
@@ -29,11 +30,18 @@ int sent_flag;
 int HEIGHT_AVG_INDEX;
 int HEIGHT_AVG_BUFFER[HEIGHT_BUFFER_SIZE];
 int xDiam;
-int fromCentX;
-int yDiam;
-int fromBott;
+float fromCentX;
+// int yDiam;
+// int fromBott;
 int knownHeight = 70;
 int knownDist = 20;
+int objectW = 6;
+int objectH = 7;
+float distH;
+float focalH;
+int feet;
+int inches;
+int degree;
 /*========================================================
   Function Status:
 
@@ -58,6 +66,7 @@ void setup() {
   //pinMode(1,OUTPUT);
   //pinMode(0,INPUT);
 
+  focalH = round((knownHeight * knownDist) / objectH);
   //Initialize pixy cam interface
   pixy.init();
 
@@ -124,61 +133,68 @@ void loop() {
                if(pixy.blocks[j].height >= S1_LOWER_HEIGHT && pixy.blocks[j].height <= S1_HIGHER_HEIGHT)
                {
                  //for calibration=======================
-                 // for (x=0; x<blocks; x++)
-                 // {
-                 // sprintf(buf, "  block %d: Width: %d", j, pixy.blocks[j].height);
-                 // Serial.print(buf);
+                  for (j=0; j<blocks; j++)
+                  {
+//                 sprintf(buf, "  block %d: Width: %d", j, pixy.blocks[j].height);
+//                 Serial.print(buf);
                  // pixy.blocks[j].print();
                  // }
                  // mySerial.write(buf);
                  //======================================
-
+                  //early testing
 
                  // getAngle(pixy.blocks[j]);
 
                  //get the angle_outside method
-                 // xDiam = (pixy.blocks[j].width/2);
-                 // fromCentX = pixy.blocks[j].x + xDiam;
+                 xDiam = (pixy.blocks[j].width/2);
+                 if (pixy.blocks[j].x > MID_VIEW)
+                 {
+                  fromCentX = (MID_VIEW - (pixy.blocks[j].x + xDiam));
+                 }
+                 else if (pixy.blocks[j].x < MID_VIEW)
+                 {
+                  fromCentX = ((pixy.blocks[j].x - MID_VIEW) - xDiam);
+                 }
+                 else
+                 {
+                  fromCentX = 0;
+                 }
                  // yDiam = (pixy.blocks[j].height/2);
                  // fromBott = pixy.blocks[j].y - yDiam;
                  // degree = atan((diameter+fromCent)/fromBott)
                  // sprintf(buf,degree);
 
+                 //======================================
+                distH = (focalH * objectH)/(pixy.blocks[j].height); //in inches
+                feet = distH/12;
+                inches = int(distH) % 12;
+                sprintf(buf, "Distance: %d feet, %d inches.\n", feet, inches);
+//                Serial.print(buf);
+//                mySerial.write(buf);
+                sprintf(buf, "fromCentX: %d, distH: %d\n", fromCentX, distH);
+//                Serial.print(buf);
+//                mySerial.write(buf);
+                degree = (atan(fromCentX/distH));
+                sprintf(buf, "Degree: %d\n", degree);
+//                sprintf(buf, "%d", degree);
+                Serial.print(degree);
+//                mySerial.write(buf);
+                 //======================================
+
+
              //  //0 Range
              //  if(pixy.blocks[j].x >= 0 && pixy.blocks[j].x <= 60){
              //    sprintf(buf,"0");
              //    mySerial.write(buf);
-             //  }
-             //
-             //  //1 Range
-             //  else if(pixy.blocks[j].x > 60 && pixy.blocks[j].x <= 120){
-             //    sprintf(buf,"1");
-             //    mySerial.write(buf);
-             //  }
-             //
-             //  //2 Range
-             //  else if(pixy.blocks[j].x > 120 && pixy.blocks[j].x <= 190){
-             //    sprintf(buf,"2");
-             //    mySerial.write(buf);
-             //  }
-             //
-             //  //3 Range
-             //  else if(pixy.blocks[j].x > 190 && pixy.blocks[j].x <= 250){
-             //    sprintf(buf,"3");
-             //    mySerial.write(buf);
-             //  }
-             //
-             // //4 Range
-             //  else if(pixy.blocks[j].x > 250){
-             //    sprintf(buf,"4");
-             //    mySerial.write(buf);
               }
+          }
           //===============================================================================================
       }
                   //No Data Found
-      else{
-       sprintf(buf,"5");
-       mySerial.write(buf);
+      else
+      {
+        sprintf(buf,"1");
+        mySerial.write(buf);
       }
     }
 
