@@ -1,8 +1,10 @@
 #pragma config(Sensor, dgtl1,  TransPneu,      sensorDigitalOut)
 #pragma config(Motor,  port1,           intakeMot,     tmotorVex393_HBridge, openLoop)
-#pragma config(Motor,  port2,           rightDrive1,   tmotorVex393_MC29, openLoop, reversed)
-#pragma config(Motor,  port3,           rightDrive2,   tmotorVex393_MC29, openLoop)
-#pragma config(Motor,  port4,           rightDrive3,   tmotorVex393_MC29, openLoop, reversed)
+#pragma config(Motor,  port2,           rightDrive1,   tmotorVex393_MC29, openLoop)
+#pragma config(Motor,  port3,           rightDrive2,   tmotorVex393_MC29, openLoop, reversed)
+#pragma config(Motor,  port4,           rightDrive3,   tmotorVex393_MC29, openLoop)
+#pragma config(Motor,  port5,           flyWheel1,     tmotorVex393_MC29, openLoop)
+#pragma config(Motor,  port6,           flyWheel2,     tmotorVex393_MC29, openLoop)
 #pragma config(Motor,  port7,           leftDrive1,    tmotorVex393_MC29, openLoop)
 #pragma config(Motor,  port8,           leftDrive2,    tmotorVex393_MC29, openLoop, reversed)
 #pragma config(Motor,  port9,           leftDrive3,    tmotorVex393_MC29, openLoop)
@@ -24,6 +26,8 @@
 #include "Vex_Competition_Includes.c"
 #include "DriveCode.h"
 #include "RobotModules.h"
+#include "FlyWheelCode.h"
+#include "TomTank.h"
 
 /*---------------------------------------------------------------------------*/
 /*                          Pre-Autonomous Functions                         */
@@ -88,6 +92,8 @@ task usercontrol()
 	setupSens();
   while (true)
   {
+  	driveT();
     drive();
+    flyWheel();
   }
 }

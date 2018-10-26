@@ -9,11 +9,11 @@ void butLag()
 {
 	wait10Msec(lag);
 }
-void halt()
-{
-	rightMotors(0);
-	leftMotors(0);
-}
+//void halt()
+//{
+//	rightMotors(0);
+//	leftMotors(0);
+//}
 void transmission()
 {
 	if (vexRT[remote.transmission] == 1)
@@ -32,25 +32,25 @@ void transmission()
 		}
 	}
 }
-void chassisCode()
-{
-	if(abs(vexRT[remote.rightDrive]) > deadzone)
-	{
-		rightMotors(vexRT[remote.rightDrive]);
-	}
-	else
-	{
-		rightMotors(0);
-	}
-	if(abs(vexRT[remote.leftDrive]) > deadzone)
-	{
-		leftMotors(vexRT[remote.leftDrive]);
-	}
-	else
-	{
-		leftMotors(0);
-	}
-}
+//void chassisCode()
+//{
+//	if(abs(vexRT[remote.rightDrive]) > deadzone)
+//	{
+//		rightMotors(vexRT[remote.rightDrive]);
+//	}
+//	else
+//	{
+//		rightMotors(0);
+//	}
+//	if(abs(vexRT[remote.leftDrive]) > deadzone)
+//	{
+//		leftMotors(vexRT[remote.leftDrive]);
+//	}
+//	else
+//	{
+//		leftMotors(0);
+//	}
+//}
 void buttonCode()
 {
 	transmission();
@@ -72,7 +72,7 @@ void intakeCode()
 }
 void drive()
 {
-	chassisCode();
+	//chassisCode();
 	buttonCode();
 	intakeCode();
 }

@@ -11,8 +11,6 @@ task main()
 	motor[Motor2] = 80;
 	wait1Msec(3000);
 	motor[Motor1]=0;
-	motor[motor[Motor2]
-	motor[Motor1] = 0;
 	motor[Motor2] = 0; //stop
 
 }

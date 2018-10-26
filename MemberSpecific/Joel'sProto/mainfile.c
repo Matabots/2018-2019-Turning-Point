@@ -59,7 +59,7 @@ task main()
 		}
 
 		if(vexRT[Ch2] > 10 || vexRT[Ch2] < -10)
-		{
+			{
 			rightMots(vexRT[Ch2]);
 			}
 		else

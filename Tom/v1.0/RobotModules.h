@@ -17,8 +17,8 @@ void setupRemote()
 	remote.intakeForward = Btn5U;
 	remote.intakeBackward = Btn5D;
 	remote.flywheel = Btn6U;
-	remote.rightDrive = Ch2;
-	remote.leftDrive = Ch3;
+	//remote.rightDrive = Ch2;
+	//remote.leftDrive = Ch3;
 	remote.transmission = Btn6D;
 }
 void setupSens()
