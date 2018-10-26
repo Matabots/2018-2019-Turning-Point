@@ -20,16 +20,21 @@
 #define S2_HIGHER_HEIGHT 199
 #define HEIGHT_BUFFER_SIZE 5
 #define MID_VIEW 160
+#define PI 3.14159265
+
 Pixy pixy;
 
 //serial variable for transmitting data
 SoftwareSerial mySerial(0,1); //Rx Tx
 char buf[BUFFER_SIZE];
+char one[30];
+char two[30];
+char three[20];
 int send_enable;
 int sent_flag;
 int HEIGHT_AVG_INDEX;
 int HEIGHT_AVG_BUFFER[HEIGHT_BUFFER_SIZE];
-int xDiam;
+float xDiam;
 float fromCentX;
 // int yDiam;
 // int fromBott;
@@ -37,8 +42,8 @@ int knownHeight = 70;
 int knownDist = 20;
 int objectW = 6;
 int objectH = 7;
-float distH;
-float focalH;
+int distH;
+int focalH;
 int feet;
 int inches;
 int degree;
@@ -153,7 +158,7 @@ void loop() {
                  }
                  else if (pixy.blocks[j].x < MID_VIEW)
                  {
-                  fromCentX = ((pixy.blocks[j].x - MID_VIEW) - xDiam);
+                  fromCentX = ((pixy.blocks[j].x - MID_VIEW) - xDiam) * 0.001;
                  }
                  else
                  {
@@ -168,17 +173,24 @@ void loop() {
                 distH = (focalH * objectH)/(pixy.blocks[j].height); //in inches
                 feet = distH/12;
                 inches = int(distH) % 12;
-                sprintf(buf, "Distance: %d feet, %d inches.\n", feet, inches);
+//                sprintf(buf, "Distance: %d feet, %d inches.\n", feet, inches);
 //                Serial.print(buf);
 //                mySerial.write(buf);
-                sprintf(buf, "fromCentX: %d, distH: %d\n", fromCentX, distH);
+                dtostrf(fromCentX, 4, 2, one);
+//                dtostrf(distH, 4, 2, two);
+//                sprintf(buf, "fromCentX: %s, distH: %s\n", one, two);
 //                Serial.print(buf);
 //                mySerial.write(buf);
-                degree = (atan(fromCentX/distH));
-                sprintf(buf, "Degree: %d\n", degree);
-//                sprintf(buf, "%d", degree);
-                Serial.print(degree);
-//                mySerial.write(buf);
+                degree = round((atan(fromCentX/distH)) * 180 / PI);
+                dtostrf(degree, 4, 2, three);
+//                sprintf(buf, "Degree: %d\n", degree);
+                sprintf(buf, "%d.", degree);
+//                Serial.print(degree, 3);
+//                Serial.print(buf, degree);
+//                sprintf(buf, "%s&", three);
+                 Serial.print(buf);
+                 mySerial.write(buf);
+//                mySerial.write(degree);
                  //======================================
 
 
