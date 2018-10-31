@@ -13,12 +13,19 @@ float proportional_Cont(float input, float kp)
 }
 float integral_Cont(float ki)
 {
-  totalError = totalError + (error * dt);
+  if(abs(error) < abs(tolerance))
+  {
+    totalError = totalError + (error * dt);
+  }
+  else
+  {
+    totalError = 0;
+  }
   return (totalError * ki);
 }
 float derivative_Cont(float kd)
 {
-  return ((error - prevError)/(dt));
+  return (((error - prevError)/(dt)) * kd);
 }
 
 float PIDController(float target, float senseVal, float kp, float ki, float kd)
@@ -32,6 +39,6 @@ float PIDController(float target, float senseVal, float kp, float ki, float kd)
   */
   currSens = senseVal;
   error = input - currSens;
-  result = proportional_Cont(target, kp) + integral_Cont(ki) + derivative_Cont(kd)
+  result = proportional_Cont(target, kp) + integral_Cont(ki) + derivative_Cont(kd);
   return result;
 }
