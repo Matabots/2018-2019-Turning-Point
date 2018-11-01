@@ -7,7 +7,7 @@ void Rotate(int target, float weight, int tolerance)
 		int current = SensorValue[Encode];
 		current = 0;
 		int error = target - current;
-		while (true)
+		while (true) //There
 		{
 			current = SensorValue[Encode];
 			error = target - current;
