@@ -11,7 +11,7 @@ Repository Table of Contents
 
 ## 1. v4
 
-####  1. BasicSquare
+####   1. BasicSquare
 
   ####1. BoffAugmentedStack
 
