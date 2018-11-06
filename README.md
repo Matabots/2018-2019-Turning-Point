@@ -12,23 +12,23 @@ Repository Table of Contents
 ## 1. v4
 #### 1. BasicSquare
 
-  ####1. BoffAugmentedStack
+  #### 1. BoffAugmentedStack
 
-    ######1. Competition_Code_Copy
+    ###### 1. Competition_Code_Copy
 
-      ########1. DriveCode
+      ######## 1. DriveCode
 
-    ######1. Gary's Code
+    ###### 1. Gary's Code
 
-    ######1. New Code
+    ###### 1. New Code
 
       ########1. Pixy_Routine_Copy
 
-  ####1. Jerry
+  #### 1. Jerry
 
-  ####1. MeetTheClubs2018
+  #### 1. MeetTheClubs2018
 
-  ####1. MemberSpecific
+  #### 1. MemberSpecific
 
     ######1. Dinero'sProto
 
