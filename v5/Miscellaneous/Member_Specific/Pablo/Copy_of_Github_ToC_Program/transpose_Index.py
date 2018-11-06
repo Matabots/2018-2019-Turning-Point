@@ -92,7 +92,7 @@ for z in range(0, len(new_file_Lines)):
         else:
             newLine = newLine + "."
     done = 0
-    output_file_Lines.append(newLine)
+    output_file_Lines.append(newLine + "\n")
     print(output_file_Lines[z])
 #start + (len(new_file_Lines))
 for a in range(end,len(old_file_Lines)):
