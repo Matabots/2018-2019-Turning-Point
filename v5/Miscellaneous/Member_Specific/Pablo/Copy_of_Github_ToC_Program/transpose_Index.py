@@ -1,7 +1,7 @@
 import os.path
 
 #The last line after the introduction
-Line_Break = "###2018-2019-Turning-Point\n"
+Line_Break = "### 2018-2019-Turning-Point\n"
 #Last line of List
 List_End = "**=====================**\n"
 #Github local repository path
@@ -67,6 +67,7 @@ print(end)
 for y in range(0, (start + 1)):
     output_file_Lines.insert(y,old_file_Lines[y])
     print(output_file_Lines[y])
+output_file_Lines.append("\n")
 
 #adds new output file lines for list
 for z in range(0, len(new_file_Lines)):
@@ -79,18 +80,15 @@ for z in range(0, len(new_file_Lines)):
 
         if (new_file_Lines[z][n] != "-"):
             if(done == 0):
-                for p in range(2, n):
-                    if (p == 2):
-                        newLine = newLine + "##"
-                    else:
-                        newLine = newLine + "#"
+                for p in range(3, (((n - 2) * 3) - 1)):
+                    newLine = newLine + " "
                 done = 1
-                newLine = newLine + new_file_Lines[z][n]
+                newLine = newLine + "1. " + new_file_Lines[z][n]
             else:
                 newLine = newLine + new_file_Lines[z][n]
 
-        else:
-            newLine = newLine + "."
+        # else:
+        #     newLine = newLine + " "
     done = 0
     output_file_Lines.append(newLine + "\n")
     print(output_file_Lines[z])
