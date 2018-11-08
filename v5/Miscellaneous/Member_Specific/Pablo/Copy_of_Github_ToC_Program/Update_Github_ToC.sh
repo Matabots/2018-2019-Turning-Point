@@ -1,4 +1,4 @@
-sh Update_Index.sh
+#sh Update_Index.sh
 cd 2018-2019-Turning-Point/
 #following line is a command to write a list of folders in a directory
 #Source: https://perishablepress.com/list-files-folders-recursively-terminal/

@@ -1,5 +1,12 @@
 # **CSUN Matabots**
 
+## **Repository for 2018-2019-Turning-Point**
+
+## Table of Contents
+**=2018-2019-Turning-Point===**
+
+### 2018-2019-Turning-Point
+
 1. v4
 
      1. BasicSquare
@@ -58,6 +65,8 @@
 
            1. Small_Robot
 
+                 1. Sunny Shah
+
      1. CSUNCompTeam
 
            1. Big_Robot
@@ -77,6 +86,12 @@
      1. Miscellaneous
 
            1. Member_Specific
+
+                 1. Daniel
+
+                 1. Gisela
+
+                 1. Joel
 
                  1. Pablo
 
