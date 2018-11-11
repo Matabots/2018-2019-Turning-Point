@@ -1,7 +1,8 @@
 task main()
+#define deadzone 15
 {
 	while (true)
-		if(abs(vexRT[Ch3] > 10 || < -10)
+		if(abs(vexRT[Ch3] > 10 )
 	{
 		motor[leftMotor1] = 127;
 		motor[leftMotor2] = 127;
@@ -13,3 +14,17 @@ task main()
 		motor[leftMotor2] = 0;
 		motor[leftMotor3] = 0;
 	}
+		if(abs(vexRT[Ch3] < -10)
+	{
+		motor[leftMotor1] = -127;
+		motor[leftMotor2] = -127;
+		motor[leftMotor3] = -127;
+	}
+	else
+	{
+		motor[leftMotor1] = 0;
+		motor[leftMotor2] = 0;
+		motor[leftMotor3] = 0;
+	}
+		if(abs(vexRT[Ch4] >
+		
