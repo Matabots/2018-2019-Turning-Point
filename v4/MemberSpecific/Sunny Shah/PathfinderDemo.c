@@ -163,6 +163,10 @@ void PrintField()
         {
             printf(" R ");
         }
+        else if(field[i][j] == 1)
+        {
+            printf(" X ");
+        }
         else if(field[i][j] == -1)
         {
             printf(" * ");
