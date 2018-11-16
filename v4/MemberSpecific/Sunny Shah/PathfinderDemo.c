@@ -147,83 +147,82 @@ void faceDirection(int DirectionFacing, int GoalDirection)
     DirectionFacing = GoalDirection;
 }
 
-
 void PrintField()
-{
-   for(int i = 0; i < X_size; i++)
-   {
-    printf(" [ ");
-    for(int j = 0; j < Y_size; j++)
     {
-        if(field[i][j] == 2)
-        {
-            printf(" G ");
-        }
-        else if(field[i][j] == 99)
-        {
-            printf(" R ");
-        }
-        else if(field[i][j] == 1)
-        {
-            printf(" X ");
-        }
-        else if(field[i][j] == -1)
-        {
-            printf(" * ");
-        }
-        else
-        {
-            printf(" %i ", field[i][j]);
-        }
-    }
-    printf(" ] \n");
-   }
-   print("\n\n");
-}
-
-void MakePaths()
-{
-    int goal_x, goal_y;
-    int stepsValue = 2;
-    bool check = true;
-
-    // FIND GOAL
-    while(check == true)
-    {
-        check = false;
         for(int i = 0; i < X_size; i++)
         {
+            printf(" [ ");
             for(int j = 0; j < Y_size; j++)
             {
-                if(field[i][j] == stepsValue)    // If Goal is found
+                if(field[i][j] == 2)
                 {
-                    check = true;
-                    goal_x = i;
-                    goal_y = j;
-                    // Increment values around stepsValue
-                    if((field[goal_x-1][goal_y] == 0) && (goal_x >= 0))     // increment left element
-                    {
-                        field[goal_x-1][goal_y] == stepsValue + 1;
-                    }
-                    if((field[goal_x+1][goal_y] == 0) && (goal_x < (X_size-1)))   // increment right element
-                    {
-                        field[goal_x+1][goal_y] == stepsValue + 1;
-                    }
-                    if((field[goal_x][goal_y-1] == 0) && (goal_y >= 0))     // increment upward element
-                    {
-                        field[goal_x][goal_y-1] == stepsValue + 1;
-                    }
-                    if((field[goal_x][goal_y+1] == 0) && (goal_y < (Y_size-1)))   // increment downward element
-                    {
-                        field[goal_x][goal_y+1] == stepsValue + 1;
-                    }
-                    PrintField();
-                    stepsValue++;
+                    printf(" G ");
                 }
-             }
+                else if(field[i][j] == 99)
+                {
+                    printf(" R ");
+                }
+                else if(field[i][j] == 1)
+                {
+                    printf(" X ");
+                }
+                else if(field[i][j] == 100)
+                {
+                    printf(" * ");
+                }
+                else
+                {
+                    printf(" %i ", field[i][j]);
+                }
+            }
+            printf(" ] \n");
+        }
+        printf("\n\n");
+    }
+
+void MakePaths()
+    {
+        int goal_x, goal_y;
+        int stepsValue = 2;
+        int check = 1;
+        
+        // FIND GOAL
+        while(check == 1)
+        {
+            check = 0;
+            for(int i = 0; i < X_size; i++)
+            {
+                for(int j = 0; j < Y_size; j++)
+                {
+                    if(field[i][j] == stepsValue)    // If Goal is found
+                    {
+                        check = 1;
+                        goal_x = i;
+                        goal_y = j;
+                        // Increment values around stepsValue
+                        if((field[goal_x-1][goal_y] == 0) && (goal_x > 0))     // increment left element
+                        {
+                            field[goal_x-1][goal_y] = stepsValue + 1;
+                        }
+                        if((field[goal_x+1][goal_y] == 0) && (goal_x < (X_size-1)))   // increment right element
+                        {
+                            field[goal_x+1][goal_y] = stepsValue + 1;
+                        }
+                        if((field[goal_x][goal_y-1] == 0) && (goal_y > 0))     // increment upward element
+                        {
+                            field[goal_x][goal_y-1] = stepsValue + 1;
+                        }
+                        if((field[goal_x][goal_y+1] == 0) && (goal_y < (Y_size-1)))   // increment downward element
+                        {
+                            field[goal_x][goal_y+1] = stepsValue + 1;
+                        }
+                    }
+                }
+            }
+            PrintField();
+            stepsValue++;
         }
     }
-}
 
 void TakePath()
 {
@@ -232,64 +231,70 @@ void TakePath()
     int current_x, current_y;
     int next_x, next_y;
 
-    while(field[current_x][current_y] != 2)
+    for(int i = 0; i < X_size; i++)
     {
-        for(int i = 0; i < X_size; i++)
+        for(int j = 0; j < Y_size; j++)
         {
-            for(int j = 0; j < Y_size; j++)
+            // FIND ROBOT
+            if(field[i][j] == 99)
             {
-                // FIND ROBOT
-                if(field[i][j] == 99)   
-                {
-                    current_x = i;
-                    current_y = j;
-                    if((field[current_x-1][current_y] != 1) && (current_x >= 0) && (field[current_x-1][current_y] < nextValue))     // check left element
-                    {
-                        nextValue = field[current_x-1][current_y];
-                        next_x = current_x-1;
-                        next_y = current_y;
-                        GoalDirection = 4;
-                    }
-                    if((field[current_x+1][current_y] != 1) && (current_x < (X_size-1)) && (field[current_x+1][current_y] < nextValue))   // check right element
-                    {
-                        nextValue = field[current_x+1][current_y];
-                        next_x = current_x+1;
-                        next_y = current_y;
-                        GoalDirection = 2;
-                    }
-                    if((field[current_x][current_y-1] != 1) && (current_y >= 0) && (field[current_x][current_y-1] < nextValue))     // check upward element
-                    {
-                        nextValue = field[current_x][current_y-1];
-                        next_x = current_x;
-                        next_y = current_y-1;
-                        GoalDirection = 1;
-                    }
-                    if((field[current_x][current_y+1] != 1) && (current_y < (Y_size-1)) && (field[current_x][current_y+1] < nextValue))   // check downward element
-                    {
-                        nextValue = field[current_x][current_y+1];
-                        next_x = current_x;
-                        next_y = current_y+1;
-                        GoalDirection = 3;
-                    }
-                    field[current_x][current_y] = -1;
-                    field[next_x][next_y] = 99;
-                    faceDirection(DirectionFacing, GoalDirection);
-                    move(tile_length);
-                    PrintField();
-                }
+                current_x = i;
+                current_y = j;
             }
         }
+    }
+
+    while(nextValue > 2)
+    {
+        nextValue = 99;
+        if((field[current_x-1][current_y] != 1) && (current_x > 0) && (field[current_x-1][current_y] < nextValue))     // check left element
+        {
+            nextValue = field[current_x-1][current_y];
+            next_x = current_x-1;
+            next_y = current_y;
+            GoalDirection = 4;
+        }
+        if((field[current_x+1][current_y] != 1) && (current_x < (X_size-1)) && (field[current_x+1][current_y] < nextValue))   // check right element
+        {
+            nextValue = field[current_x+1][current_y];
+            next_x = current_x+1;
+            next_y = current_y;
+            GoalDirection = 2;
+        }
+        if((field[current_x][current_y-1] != 1) && (current_y > 0) && (field[current_x][current_y-1] < nextValue))     // check upward element
+        {
+            nextValue = field[current_x][current_y-1];
+            next_x = current_x;
+            next_y = current_y-1;
+            GoalDirection = 1;
+        }
+        if((field[current_x][current_y+1] != 1) && (current_y < (Y_size-1)) && (field[current_x][current_y+1] < nextValue))   // check downward element
+        {
+            nextValue = field[current_x][current_y+1];
+            next_x = current_x;
+            next_y = current_y+1;
+            GoalDirection = 3;
+        }
+        field[next_x][next_y] = 99;
+        field[current_x][current_y] = 100;
+        faceDirection(DirectionFacing, GoalDirection);
+        move(tile_length);
+        PrintField();
+        current_x = next_x;
+        current_y = next_y;
     }
 }
 
 void DoPathfinding()
-{
-    PrintField();
-    MakePaths();
-    TakePath();
-}
+    {
+        PrintField();
+        MakePaths();
+        TakePath();
+    }
 
 task main()
-{
-    DoPathfinding();
-}
+    {
+        DoPathfinding();
+        return 0;
+    }
+
