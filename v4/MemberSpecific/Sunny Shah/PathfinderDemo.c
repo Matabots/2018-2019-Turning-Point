@@ -22,11 +22,11 @@ const int Y_size = 6;
 int field[X_size][Y_size] = 
 {
     {  0, 0, 0, 0, 0, 0 },
-    {  0, 0, 0, 0, 0, 0 },
-    { 99, 0, 1, 1, 0, 2 },
-    {  0, 0, 1, 1, 0, 0 },
-    {  0, 0, 0, 0, 0, 0 },
-    {  0, 0, 0, 0, 0, 0 }
+    {  0, 0, 0, 1, 0, 0 },
+    {  0, 1, 0, 0, 0, 2 },
+    {  0, 1, 1, 1, 1, 0 },
+    { 99, 0, 1, 0, 0, 0 },
+    {  1, 0, 0, 1, 0, 1 }
 };
 
 
@@ -49,7 +49,7 @@ bool nearTol(float Rcurrent, float Lcurrent, float target, float tolerance)     
 void move(float distance)
 {
     SensorValue[REncoder] = 0;
-    SensorValue[LEncoder] = 0:
+    SensorValue[LEncoder] = 0;
     target = (distance);
     Rcurrent = degToInch(SensorValue[REncoder]);    // current distance
     Lcurrent = degToInch(SensorValue[LEncoder]);
@@ -63,7 +63,7 @@ void move(float distance)
 
         motor[RMotor] = (target - Rcurrent) * weight;
         motor[LMotor] = (target - Lcurrent) * weight;
-        if((abs(motor[RMotor]) && abs(motor[LMotor]) < MinPower)
+        if((abs(motor[RMotor])) && (abs(motor[LMotor])) < MinPower)
         {
 
             if((motor[RMotor] && motor[LMotor]) > 0)
@@ -81,14 +81,14 @@ void move(float distance)
     motor[RMotor] = 0;
     motor[LMotor] = 0;
     SensorValue[REncoder] = 0;
-    SensorValue[LEncoder] = 0:
+    SensorValue[LEncoder] = 0;
 
 }
 
 void turn(int NumofDegrees)
 {
     SensorValue[REncoder] = 0;
-    SensorValue[LEncoder] = 0:
+    SensorValue[LEncoder] = 0;
     target = (RobotCircumference / 360) * NumofDegrees;
     Rcurrent = degToInch(SensorValue[REncoder]);
     Lcurrent = degToInch(SensorValue[LEncoder]);
@@ -102,14 +102,14 @@ void turn(int NumofDegrees)
 
         motor[RMotor] = -((target - Rcurrent) * weight);
         motor[LMotor] = ((target - Lcurrent) * weight);
-        if((abs(motor[RMotor]) && abs(motor[LMotor]) < MinPower)
+        if((abs(motor[RMotor])) && (abs(motor[LMotor])) < MinPower)
         {
             if((motor[RMotor] > 0) && (motor[LMotor] > 0))
             {
                 motor[RMotor] = -MinPower;
                 motor[LMotor] = MinPower;
             }
-            else if ((motor[RMotor] < 0) && (motor[LMotor]) < 0))
+            else if ((motor[RMotor] < 0) && (motor[LMotor] < 0))
             {
                 motor[RMotor] = MinPower;
                 motor[LMotor] = -MinPower;
@@ -119,7 +119,7 @@ void turn(int NumofDegrees)
     motor[RMotor] = 0;
     motor[LMotor] = 0;
     SensorValue[REncoder] = 0;
-    SensorValue[LEncoder] = 0:
+    SensorValue[LEncoder] = 0;
 
 }
 
@@ -200,19 +200,19 @@ void MakePaths()
                         goal_x = i;
                         goal_y = j;
                         // Increment values around stepsValue
-                        if((field[goal_x-1][goal_y] == 0) && (goal_x > 0))     // increment left element
+                        if((goal_x > 0) && (field[goal_x-1][goal_y] == 0))     // increment left element
                         {
                             field[goal_x-1][goal_y] = stepsValue + 1;
-                        }
-                        if((field[goal_x+1][goal_y] == 0) && (goal_x < (X_size-1)))   // increment right element
+                        } 
+                        if((goal_x < (X_size-1)) && (field[goal_x+1][goal_y] == 0))   // increment right element
                         {
                             field[goal_x+1][goal_y] = stepsValue + 1;
                         }
-                        if((field[goal_x][goal_y-1] == 0) && (goal_y > 0))     // increment upward element
+                        if((goal_y > 0) && (field[goal_x][goal_y-1] == 0))     // increment upward element
                         {
                             field[goal_x][goal_y-1] = stepsValue + 1;
                         }
-                        if((field[goal_x][goal_y+1] == 0) && (goal_y < (Y_size-1)))   // increment downward element
+                        if((goal_x < (Y_size-1)) && (field[goal_x][goal_y+1] == 0))   // increment downward element
                         {
                             field[goal_x][goal_y+1] = stepsValue + 1;
                         }
@@ -247,28 +247,28 @@ void TakePath()
     while(nextValue > 2)
     {
         nextValue = 99;
-        if((field[current_x-1][current_y] != 1) && (current_x > 0) && (field[current_x-1][current_y] < nextValue))     // check left element
+        if((current_x > 0) && (field[current_x-1][current_y] != 1) && (field[current_x-1][current_y] != 0) &&  (field[current_x-1][current_y] < nextValue))     // check left element
         {
             nextValue = field[current_x-1][current_y];
             next_x = current_x-1;
             next_y = current_y;
             GoalDirection = 4;
         }
-        if((field[current_x+1][current_y] != 1) && (current_x < (X_size-1)) && (field[current_x+1][current_y] < nextValue))   // check right element
+        if((current_x < (X_size-1)) && (field[current_x+1][current_y] != 1) && (field[current_x+1][current_y] != 0) && (field[current_x+1][current_y] < nextValue))   // check right element
         {
             nextValue = field[current_x+1][current_y];
             next_x = current_x+1;
             next_y = current_y;
             GoalDirection = 2;
         }
-        if((field[current_x][current_y-1] != 1) && (current_y > 0) && (field[current_x][current_y-1] < nextValue))     // check upward element
+        if((current_y > 0) && (field[current_x][current_y-1] != 1) && (field[current_x][current_y-1] != 0) && (field[current_x][current_y-1] < nextValue))     // check upward element
         {
             nextValue = field[current_x][current_y-1];
             next_x = current_x;
             next_y = current_y-1;
             GoalDirection = 1;
         }
-        if((field[current_x][current_y+1] != 1) && (current_y < (Y_size-1)) && (field[current_x][current_y+1] < nextValue))   // check downward element
+        if((current_y < (Y_size-1)) && (field[current_x][current_y+1] != 1) && (field[current_x][current_y+1] != 0) && (field[current_x][current_y+1] < nextValue))   // check downward element
         {
             nextValue = field[current_x][current_y+1];
             next_x = current_x;
