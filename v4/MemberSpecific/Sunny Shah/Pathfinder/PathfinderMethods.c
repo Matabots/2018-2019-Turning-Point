@@ -1,4 +1,7 @@
 
+#include "PathfinderPID.c"
+
+
 // GLOBAL VARIABLES
 const int diameter = 4; // inches
 const int tile_length = 24; // inches
@@ -7,27 +10,56 @@ const float circumference = (pi * diameter);     // the total distance one full 
 const float rotations_per_tile = (tile_length / circumference);    // the number of rotations the wheel makes to cover one tile
 const float radius_of_robot = 5.5;            // this is the length from the center of the robot to the wheel (in inches)
 const float RobotCircumference = (2 * pi * radius_of_robot);    // this is the circumference of the circle that would be made by a turning robot
-float target;   // desired distance
 float Rcurrent, Lcurrent, tolerance;
-int weight, MinPower;
+int proportionalWeight, MinPower;
 int DirectionFacing = 2;
+float tarDeg = 60; //Arbitrary value for a degree target
+float proportionalWeight;
+float integralWeight;
+float derivativeWeight;
+float sampleTime = 50; //arbitrary, but should be calculated if possible. Milliseconds
+//sampleTime is the time between intervals of taking a measurement. Useful for integral
+// and derivative
+float RmotPow = 0, LmotPow = 0; //a temporary place to store the result from PID.
 
-// SET FIELDS
-//  0 == Open / Empty Space
-//  1 == Obstacle
-//  2 == Goal / Target
-// 99 == Robot
-const int X_size = 6;
-const int Y_size = 6;
-int field[X_size][Y_size] = 
+
+
+float proportional_Cont(float input, float kp)
 {
-    {  0, 0, 0, 0, 0, 0 },
-    {  0, 0, 0, 1, 0, 0 },
-    {  0, 1, 0, 0, 0, 2 },
-    {  0, 1, 1, 1, 1, 0 },
-    { 99, 0, 1, 0, 0, 0 },
-    {  1, 0, 0, 1, 0, 1 }
-};
+  return (error * kp);
+}
+float integral_Cont(float ki)
+{
+  if(abs(error) < abs(tolerance))
+  {
+    totalError = totalError + (error * dt);
+  }
+  else
+  {
+    totalError = 0;
+  }
+  return (totalError * ki);
+}
+float derivative_Cont(float kd)
+{
+  return (((error - prevError)/(dt)) * kd);
+}
+
+float PIDController(float target, float senseVal, float senseTime, float kp, float ki, float kd)
+{
+  float result;
+  /*target is your target value
+  sense is the value of a sensor
+  kp is your weight for the proportional controller
+  ki is your weight for the integral controller
+  kd is your weight for the derivative controller
+  */
+  dt = senseTime/1000; //since time is defined in miliseconds
+  currSens = senseVal;
+  error = input - currSens;
+  result = proportional_Cont(target, kp) + integral_Cont(ki) + derivative_Cont(kd);
+  return result;
+}
 
 
 float degToInch(int degree)
@@ -36,33 +68,47 @@ float degToInch(int degree)
     return inch;
 }
 
-bool nearTol(float Rcurrent, float Lcurrent, float target, float tolerance)     // checks whether value of encoder is within tolerance
+bool nearTol(float Rcurrent, float Lcurrent, float tarDeg, float tolerance)     // checks whether value of encoder is within tolerance
 {
     bool check = true;
-    if((Rcurrent <= (target - tolerance) || Rcurrent >= (target + tolerance)) && (Lcurrent <= (target - tolerance) || Lcurrent >= (target + tolerance)))
+    if((Rcurrent <= (tarDeg - tolerance) || Rcurrent >= (tarDeg + tolerance)) && (Lcurrent <= (tarDeg - tolerance) || Lcurrent >= (tarDeg + tolerance)))
     {
         check = false;
     }
     return check;
 }  
 
+task PIDControl()
+{
+  while(true) //in a while true loop to maintain the angle desired
+  {
+    RmotPow = PIDController(tarDeg, Rcurrent, proportionalWeight, integralWeight, derivativeWeight);
+    LmotPow = PIDController(tarDeg, Lcurrent, proportionalWeight, integralWeight, derivativeWeight);
+    //this only changes a value, not the motor power, to avoid power assigning issues
+    wait1msec(sampleTime); //waits for the amount of sampleTime
+  }
+}
+
 void move(float distance)
 {
     SensorValue[REncoder] = 0;
     SensorValue[LEncoder] = 0;
-    target = (distance);
+    tarDeg = (distance);
     Rcurrent = degToInch(SensorValue[REncoder]);    // current distance
     Lcurrent = degToInch(SensorValue[LEncoder]);
-    weight = 15;
+    proportionalWeight = 15;
+    integralWeight = 10;
+    derivativeWeight = 10;
     tolerance = 1;    // inches
     MinPower = 25;    // Minimum power for Motor
-    while(nearTol(Rcurrent, Lcurrent, target, tolerance))
+    startTask(PIDControl);
+    while(nearTol(Rcurrent, Lcurrent, tarDeg, tolerance))
     {
         Rcurrent = degToInch(SensorValue[REncoder]);
         Lcurrent = degToInch(SensorValue[LEncoder]);
 
-        motor[RMotor] = (target - Rcurrent) * weight;
-        motor[LMotor] = (target - Lcurrent) * weight;
+        motor[RMotor] = RmotPow;
+        motor[LMotor] = LmotPow;
         if((abs(motor[RMotor])) && (abs(motor[LMotor])) < MinPower)
         {
 
@@ -89,19 +135,20 @@ void turn(int NumofDegrees)
 {
     SensorValue[REncoder] = 0;
     SensorValue[LEncoder] = 0;
-    target = (RobotCircumference / 360) * NumofDegrees;
+    tarDeg = (RobotCircumference / 360) * NumofDegrees;
     Rcurrent = degToInch(SensorValue[REncoder]);
     Lcurrent = degToInch(SensorValue[LEncoder]);
-    weight = 5;
+    proportionalWeight = 5;
     tolerance = 3.8;    // inches
     MinPower = 18;        // Minimum power for Motor
-    while(nearTol(Rcurrent, Lcurrent, target, tolerance))
+    startTask(PIDControl);
+    while(nearTol(Rcurrent, Lcurrent, tarDeg, tolerance))
     {
         Rcurrent = degToInch(SensorValue[REncoder]);
         Lcurrent = degToInch(SensorValue[LEncoder]);
 
-        motor[RMotor] = -((target - Rcurrent) * weight);
-        motor[LMotor] = ((target - Lcurrent) * weight);
+        motor[RMotor] = -RmotPow;
+        motor[LMotor] = LmotPow;
         if((abs(motor[RMotor])) && (abs(motor[LMotor])) < MinPower)
         {
             if((motor[RMotor] > 0) && (motor[LMotor] > 0))
@@ -291,10 +338,3 @@ void DoPathfinding()
         MakePaths();
         TakePath();
     }
-
-task main()
-    {
-        DoPathfinding();
-        return 0;
-    }
-
