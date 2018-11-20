@@ -12,8 +12,8 @@ void move_Chassis()
   pros::Motor left_motor2(12, false);
   pros::Motor left_motor3(4, false);
   pros::Motor intake_motor(6);
-  pros::Motor flywheel_motor1(2, false);
-  pros::Motor flywheel_motor2(3, true);
+  pros::Motor flywheel_motor1(2, true);
+  pros::Motor flywheel_motor2(3, false);
   int left = 0;
   int right = 0;
   int inTake = 0;
