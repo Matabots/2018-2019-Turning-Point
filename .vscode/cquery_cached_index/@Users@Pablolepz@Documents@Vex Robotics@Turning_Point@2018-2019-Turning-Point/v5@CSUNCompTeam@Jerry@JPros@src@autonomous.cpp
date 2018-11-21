@@ -1,4 +1,5 @@
 #include "main.h"
+#include "auton_scripts.hpp"
 
 /**
  * Runs the user autonomous code. This function will be started in its own task
@@ -11,4 +12,7 @@
  * will be stopped. Re-enabling the robot will restart the task, not re-start it
  * from where it left off.
  */
-void autonomous() {}
+void autonomous() {
+  //this is the auton
+  run_auton();
+}
