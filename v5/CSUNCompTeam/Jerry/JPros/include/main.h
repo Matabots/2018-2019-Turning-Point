@@ -77,6 +77,10 @@ void opcontrol(void);
  * You can add C++-only headers here
  */
  #include "drive.hpp"
+ #include "auton_commands.hpp"
+ #include "serial.hpp"
+ #include "auton_scripts.hpp"
+
 //#include <iostream>
 #endif
 
