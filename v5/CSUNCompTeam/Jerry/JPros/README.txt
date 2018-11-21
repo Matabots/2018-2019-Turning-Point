@@ -1,6 +1,5 @@
 
 
-
 This project, JPROS, is the v5 code for the small robot named Jerry.
   -CSUN Vex Robotics
 

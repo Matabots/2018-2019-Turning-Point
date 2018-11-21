@@ -2,6 +2,12 @@
 #include "main.h"
 #include "drive.hpp"
 
+static std::string stringFlow = "Hello World, I'm Jerry!";
+static int counter = stringFlow.length();
+static std::string output;
+static int start = 0;
+static int end = stringFlow.length();
+
 pros::Controller master(pros::E_CONTROLLER_MASTER);
 pros::Motor right_motor1(11, false);
 pros::Motor right_motor2(12, true);
@@ -15,6 +21,17 @@ pros::Motor flywheel_motor2(19, false);
 pros::Motor Lift_motor1(4, false);
 pros::Motor Lift_motor2(5, true);
 pros::Motor endEff_motor(1, true);
+
+void screen_placeholder()
+{
+	while(true)
+	{
+		pros::lcd::clear_line(3);
+    output.erase(output.begin(),output.end());
+		output.append(stringFlow, start, end);
+		pros::lcd::set_text(3, output);
+	}
+}
 
 void left_motors_go(int rpm)
 {
