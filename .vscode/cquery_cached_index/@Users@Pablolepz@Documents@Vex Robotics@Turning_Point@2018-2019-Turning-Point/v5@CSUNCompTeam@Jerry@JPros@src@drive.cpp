@@ -2,36 +2,38 @@
 #include "main.h"
 #include "drive.hpp"
 
-static std::string stringFlow = "Hello World, I'm Jerry!";
-static int counter = stringFlow.length();
-static std::string output;
-static int start = 0;
-static int end = stringFlow.length();
+// static std::string stringFlow = "Hello World, I'm Jerry!";
+// static int counter = stringFlow.length();
+// static std::string output;
+// static int start = 0;
+// static int end = stringFlow.length();
 
 pros::Controller master(pros::E_CONTROLLER_MASTER);
-pros::Motor right_motor1(11, false);
-pros::Motor right_motor2(12, true);
+pros::Motor right_motor1(11, true);
+pros::Motor right_motor2(12, false);
 pros::Motor right_motor3(13, false);
 pros::Motor left_motor1(14 ,true);
-pros::Motor left_motor2(15, false);
-pros::Motor left_motor3(16, true);
-pros::Motor intake_motor(20);
-pros::Motor flywheel_motor1(18, true);
-pros::Motor flywheel_motor2(19, false);
+pros::Motor left_motor2(15, true);
+pros::Motor left_motor3(16, false);
+pros::Motor intake_motor(18);
+pros::Motor flywheel_motor1(19, true);
+pros::Motor flywheel_motor2(20, false);
 pros::Motor Lift_motor1(4, false);
-pros::Motor Lift_motor2(5, true);
-pros::Motor endEff_motor(1, true);
-
-void screen_placeholder()
-{
-	while(true)
-	{
-		pros::lcd::clear_line(3);
-    output.erase(output.begin(),output.end());
-		output.append(stringFlow, start, end);
-		pros::lcd::set_text(3, output);
-	}
-}
+pros::Motor Lift_motor2(6, true);
+pros::Motor endEff_motor(2, true);
+//
+// void screen_placeholder()
+// {
+// 	while(true)
+// 	{
+// 		pros::lcd::clear_line(3);
+//     output.erase(output.begin(),output.end());
+//     output.append(30u, '_');
+//     for (int x = 1; x < )
+// 		output.append(stringFlow, start, end);
+// 		pros::lcd::set_text(3, output);
+// 	}
+// }
 
 void left_motors_go(int rpm)
 {

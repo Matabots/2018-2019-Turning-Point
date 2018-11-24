@@ -77,8 +77,8 @@ void opcontrol(void);
 /**
  * You can add C++-only headers here
  */
-  #include <iostream>
-  #include <string>
+  // #include <iostream>
+  // #include <string>
  //###########################################################################
  //The following includes created by the CSUN Vex Robotics team
  //###########################################################################

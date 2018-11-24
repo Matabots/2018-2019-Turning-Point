@@ -54,10 +54,10 @@ void disabled() {
 	pros::lcd::register_btn0_cb(left_button);
 	pros::lcd::register_btn1_cb(middle_button);
 	pros::lcd::register_btn2_cb(right_button);
-	if (pressed)
-	{
-		screen_placeholder();
-	}
+	// if (pressed)
+	// {
+	// 	screen_placeholder();
+	// }
 }
 /**
  * Runs after initialize(), and before autonomous when connected to the Field
