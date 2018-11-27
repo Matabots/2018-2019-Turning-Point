@@ -5,6 +5,7 @@ This project, JPROS, is the v5 code for the small robot named Jerry.
   -CSUN Vex Robotics
 
 @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
 
 
 For Danial, Gisela, Omar, and the rest of the CSUN Programming Competition Team:
