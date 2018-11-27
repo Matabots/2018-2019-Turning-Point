@@ -15,7 +15,12 @@ int x = 9001; //this is an example
 
 
 //==========Daniel==========
-
+int degree;
+static InchtoDeg(int inch)
+{
+  degree= ((360*inch)/(2*3.14));
+  return degree;
+}
 
 //################Manipulators##########################
 
