@@ -7,14 +7,9 @@
 
 void run_auton()
 {
-  // turn_left(90);
-  move_forward(30, 90);
-  move_fork(-1600, 100);
-  shoot_ball();
-  delay(1000);
-  move_forward(25, 170);
-
-
+  auton_tester();
+  //blue_auton_one();
+  // blue_auton_two();
   /*switch(choice)
     case 1:
       blue_auton_one();
@@ -33,7 +28,14 @@ void run_auton()
 
 void blue_auton_one()
 {
-  //By Pablo Lepe
+  //By Pablo Lepe **********
+  // turn_left(90);
+  move_forward(30, 90);
+  move_fork(-1600, 100);
+  shoot_ball();
+  delay(1000);
+  move_forward(25, 170);
+
 
 }
 
@@ -49,5 +51,11 @@ void red_auton_one()
 
 void red_auton_two()
 {
+
+}
+
+void auton_tester()
+{
+  //shoot_ball_test();
 
 }

@@ -2,8 +2,6 @@
 #include "auton_commands.hpp"
 #include "drive.hpp"
 
-
-
 //#################Variables###########################
 //Please add variables in your spaces for easy identification.
 
@@ -11,6 +9,7 @@
 int x = 9001; //this is an example
 int wheelRadius = 2;
 int tarDeg;
+int testRatio = 5; //
 
 int inches_to_degrees(int inches)
 {
@@ -95,6 +94,52 @@ void shoot_ball()
   intake_in();
   delay(500);
   intake_stop();
+  flywheel_motor1.move(0);
+  flywheel_motor2.move(0);
+}
+
+void tester_print_screen(int switcher, int speed)
+{
+  if (switcher == 1)
+  {
+    //print red when PROS has it available
+    lcd::clear();
+    pros::lcd::print(1, "Speed at:", speed);
+  }
+  else
+  {
+    //print black when PROS has it available
+    lcd::clear();
+    pros::lcd::print(2, "Speed at:", speed);
+  }
+}
+
+void shoot_ball_test()
+{
+  bool next = true;
+  int rpm = 200;
+  flywheel_motor1.move_velocity(rpm);
+  flywheel_motor2.move_velocity(rpm);
+  delay(3200);
+  intake_in();
+  for(int c = 0; c < 13; c++)
+  {
+    flywheel_motor1.move_velocity(rpm - (c * testRatio));
+    flywheel_motor2.move_velocity(rpm - (c * testRatio));
+    delay(2000);
+    if (next == true)
+    {
+      tester_print_screen(1, rpm);
+    }
+    else
+    {
+      tester_print_screen(0, rpm);
+    }
+    intake_in();
+    delay(1000);
+    intake_stop();
+    next = !next;
+  }
   flywheel_motor1.move(0);
   flywheel_motor2.move(0);
 }

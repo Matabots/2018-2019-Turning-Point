@@ -3,8 +3,8 @@
 
 #define KF 0
 #define KP 1.0f
-#define KI 0
-#define KD 0
+#define KI 0.0f
+#define KD 0.0f
 
 Controller master(pros::E_CONTROLLER_MASTER);
 Motor right_motor1(11, true);
@@ -38,6 +38,8 @@ void setup_bot()
   // left_motor1.set_pos_pid(pid1);
   // left_motor2.set_pos_pid(pid1);
   // left_motor3.set_pos_pid(pid1);
+  flywheel_motor1.set_vel_pid(pid1);
+  flywheel_motor2.set_vel_pid(pid1);
 
 
 }
