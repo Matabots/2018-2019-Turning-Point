@@ -1,54 +1,52 @@
-task main()
 #define DEADZONE 10
+int power = 127;
+int reverse = -127;
+int halt = 0;
+void right_Joystick()// Right drive controls
 {
-	while (true)
-		if(abs(vexRT[Ch3]) > DEADZONE )
-	{
-		motor[leftMotor1] = 127;
-		motor[leftMotor2] = 127;
-		//motor[leftMotor3] = 127;
-	}
-	else
-	{
-		motor[leftMotor1] = 0;
-		motor[leftMotor2] = 0;
-		//motor[leftMotor3] = 0;
-	}
-		if(abs(vexRT[Ch3]) < DEADZONE)
-	{
-		motor[leftMotor1] = -127;
-		motor[leftMotor2] = -127;
-		//motor[leftMotor3] = -127;
-	}
-	else
-	{
-		motor[leftMotor1] = 0;
-		motor[leftMotor2] = 0;
-		//motor[leftMotor3] = 0;
-	}
-		if(abs(vexRT[Ch4]) > DEADZONE)
-	{
-		motor[rightMotor1] = 127;
-		motor[rightMotor2] = 127;
-		//motor[rightMotor3] = 127;
-	}
-	else
-	{
-		motor[rightMotor1] = 0;
-		motor[rightMotor2] = 0;
-		//motor[rightMotor3] = 0;
-	}
-		if(vexRT[Ch4]) < DEADZONE)
-	{
-		motor[rightMotor1] = -127;
-		motor[rightMotor2] = -127;
-		//motor[rightMotor3] = -127;
-	}	
-	else
-	{
-		motor[rightMotor1] = 0;
-		motor[rightMotor2] = 0;
-		//motor[rightMotor3] = 0;
-	}
-		while(vexRT[Btn5u] == 1) 
-		
+motor[rightDrive1] = vexRT[Ch2]
+motor[rightDrive2] = vexRT[Ch2]
+}
+void left_Joystick()// Left drive controls
+{
+motor[leftDrive1] = vexRT[Ch3]
+motor[leftDrive2] = vexRT[Ch3]
+}
+task main()
+{
+while(true)
+if(abs(vexRT[Ch3]) > DEADZONE)
+{
+ left_Joystick();
+}
+else
+{
+ motor[leftDrive1] = halt;
+ motor[leftDRive2] = halt;
+}
+if(abs(vexRT[ch2]) > DEAZONE)
+{
+ right_Joystick();
+}
+else
+{
+ motor[rightDrive1] = halt;
+ motor[rightDRive2] = halt;
+}
+if(vexRT[Btn5U] == 1)
+{
+ motor[Intake] = power;
+}
+else
+{
+ motor[Intake] = halt;
+}
+if(vexRT[Btn5D] == 1)
+{
+ motor[Intake] = reverse;
+}
+else
+{
+ motor[Intake] = halt;
+}
+}
