@@ -18,7 +18,8 @@ Motor flywheel_motor1(19, true);
 Motor flywheel_motor2(20, false);
 Motor Lift_motor1(4, false);
 Motor Lift_motor2(6, true);
-Motor endEff_motor(2, true);
+Motor endEff_motor(3, true);
+ADIDigitalIn liftSens('H');
 motor_pid_s_t pid1 = Motor::convert_pid(KF, KP, KI, KD);
 
 void setup_bot()

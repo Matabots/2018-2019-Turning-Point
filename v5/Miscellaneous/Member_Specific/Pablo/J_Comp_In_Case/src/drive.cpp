@@ -1,6 +1,7 @@
 
 #include "main.h"
 #include "drive.hpp"
+
 // #include "robot.hpp"
 // pros::Controller master(pros::E_CONTROLLER_MASTER);
 // pros::Motor right_motor1(11, true);
@@ -53,15 +54,24 @@ void right_motors_go(int rpm)
 
 void move_Chassis()
 {
+  bool twice = false;
+  int max_standard_rpm = 200;
+  int max_high_rpm = 600;
   int left = 0;
   int right = 0;
   int inTake = 0;
   int choice = 0;
   int shootSpeed = 0;
-  int endEffSpeed = 0;
+
+  int endEffRevCount1 = 2;
+  int endEffSpeed = max_standard_rpm;
+  int endEffTar = endEff_motor.get_position();
+  int endEffAngle1 = 90;
+  int endEffAngle2 = 90;
+
   int liftSpeed = 0; //lift shall be coded in stages
-  int max_standard_rpm = 200;
-  int max_high_rpm = 600;
+  double liftTar1 = Lift_motor1.get_position();
+  double liftTar2 = Lift_motor2.get_position();
   int FW_Speed_Difference = 15;
   int FW_Speed_1 = max_standard_rpm;
   int FW_Speed_2 = max_standard_rpm - FW_Speed_Difference;
@@ -104,29 +114,48 @@ void move_Chassis()
       shootSpeed = 0;
     }
 
-    if (master.get_digital(DIGITAL_R1) == 1) //&& degrees
+    if (master.get_digital(DIGITAL_R2) == 1 && liftSens.get_value() == 0) //&& degrees
     {
-      liftSpeed = max_standard_rpm;
+      Lift_motor1.move_velocity(max_standard_rpm);
+      Lift_motor2.move_velocity(max_standard_rpm);
+      liftTar1 = Lift_motor1.get_position();
+      liftTar2 = Lift_motor2.get_position();
     }
-    else if (master.get_digital(DIGITAL_R2) == 1)
+    else if (master.get_digital(DIGITAL_R1) == 1 )
     {
-      liftSpeed = -max_standard_rpm;
+      Lift_motor1.move_velocity(-max_standard_rpm);
+      Lift_motor2.move_velocity(-max_standard_rpm);
+      liftTar1 = Lift_motor1.get_position();
+      liftTar2 = Lift_motor2.get_position();
     }
     else
     {
-      liftSpeed = 0;
+      Lift_motor1.move_absolute(liftTar1, liftSpeed);
+      Lift_motor2.move_absolute(liftTar2, liftSpeed);
     }
     if (master.get_digital(DIGITAL_L1) == 1) //&& degrees
     {
-      endEffSpeed = max_standard_rpm;
+      if (twice)
+      {
+        twice = false;
+      }
+      else
+      {
+        endEffTar = endEffTar + (endEffAngle1 * endEffRevCount1);
+        twice = true;
+      }
     }
     else if (master.get_digital(DIGITAL_L2) == 1)
     {
-      endEffSpeed = -max_standard_rpm;
-    }
-    else
-    {
-      endEffSpeed = 0;
+      if (twice)
+      {
+        twice = false;
+      }
+      else
+      {
+        endEffTar = endEffTar - (endEffAngle1 * endEffRevCount1);
+        twice = true;
+      }
     }
 
     left_motors_go(left);
@@ -134,9 +163,7 @@ void move_Chassis()
     intake_motor.move_velocity(inTake);
     flywheel_motor1.move_velocity(shootSpeed);
     flywheel_motor2.move_velocity(shootSpeed);
-    Lift_motor1.move_velocity(liftSpeed);
-    Lift_motor2.move_velocity(liftSpeed);
-    endEff_motor.move_velocity(endEffSpeed);
+    endEff_motor.move_absolute(endEffTar, endEffSpeed);
 
     pros::delay(20); //its there from pros
   }

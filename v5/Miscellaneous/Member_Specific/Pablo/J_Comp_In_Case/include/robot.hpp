@@ -15,6 +15,7 @@ extern Motor flywheel_motor2;
 extern Motor Lift_motor1;
 extern Motor Lift_motor2;
 extern Motor endEff_motor;
+extern ADIDigitalIn liftSens;
 
 extern void setup_bot();
 
