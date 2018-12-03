@@ -1,9 +1,10 @@
 #include "main.h"
 #include "drive.hpp"
 #include "robot.hpp"
+//#include "brain_screen.hpp"
+// #include "print_out_data.hpp"
 
 static bool pressed = false;
-
 /*CSUN:From looking at the current API,
 currently using the Legacy LCD is the only
 way to print onto the vex v5 brain*/
@@ -39,7 +40,9 @@ void right_button() {
 void initialize() {
 	//pros::lcd::initialize();
 	//////0o lvgl_init();
-	// setup_bot();
+	// setup_bot();s
+	//Task printOut (print_out_flywheel, (void*) "pntr", TASK_PRIORITY_DEFAULT, TASK_STACK_DEPTH_DEFAULT, "Flywheel print task");
+	//run_brain_screen.suspend();
 }
 
 /**

@@ -14,5 +14,6 @@
  */
 void autonomous() {
   //this is the auton
+  Task run_brain_screen (run_brain, (void*) "pntr2", TASK_PRIORITY_DEFAULT, TASK_STACK_DEPTH_DEFAULT, "Flywheel screen");
   run_auton();
 }
