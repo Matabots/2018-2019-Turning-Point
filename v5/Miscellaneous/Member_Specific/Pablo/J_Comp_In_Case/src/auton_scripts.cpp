@@ -1,5 +1,6 @@
 #include "main.h"
 #include "auton_scripts.hpp"
+#include "brain_screen.hpp"
 
 //fork at 90 degrees is -1000
 //fork at bottom is
@@ -7,9 +8,9 @@
 
 void run_auton()
 {
-  auton_tester();
-  //blue_auton_one();
-  // blue_auton_two();
+  //auton_tester();
+  //red_auton_one();
+  //red_auton_two();
   /*switch(choice)
     case 1:
       blue_auton_one();
@@ -26,7 +27,14 @@ void run_auton()
       */
 }
 
-void blue_auton_one()
+void auton_tester()
+{
+  shoot_ball_test();
+  //draw_test_screen();
+
+}
+
+void red_auton_one()
 {
   //By Pablo Lepe **********
   // turn_left(90);
@@ -35,12 +43,17 @@ void blue_auton_one()
   shoot_ball();
   delay(1000);
   move_forward(25, 170);
-
-
 }
 
-void blue_auton_two()
+void red_auton_two()
 {
+  //by Turtle
+  move_fork(-1600, 100);
+  shoot_ball(195);
+  delay(2000);
+  shoot_ball(180);
+
+
 
 }
 
@@ -51,12 +64,5 @@ void red_auton_one()
 
 void red_auton_two()
 {
-
-}
-
-void auton_tester()
-{
-  //shoot_ball_test();
-  //draw_test_screen();
 
 }

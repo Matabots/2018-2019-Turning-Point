@@ -1,4 +1,6 @@
 #include "main.h"
+//#include "initialize.cpp"
+//#include "brain_screen.hpp"
 //#include "drive.hpp"
 
 
@@ -15,8 +17,11 @@
  * operator control task will be stopped. Re-enabling the robot will restart the
  * task, not resume it from where it left off.
  */
+
 void opcontrol() {
 	// this is the drive
+	Task run_brain_screen (run_brain, (void*) "pntr2", TASK_PRIORITY_DEFAULT, TASK_STACK_DEPTH_DEFAULT, "Flywheel screen");
 
 	move_Chassis();
+
 }

@@ -38,6 +38,7 @@
 /**
  * You should add more #includes here
  */
+  #include "math.h"
 //#include "okapi/api.hpp"
 //#include "pros/api_legacy.h"
 
@@ -76,8 +77,9 @@ void opcontrol(void);
 /**
  * You can add C++-only headers here
  */
-  // #include <iostream>
-  // #include <string>
+  #include <iostream>
+  #include <string>
+  #include <fstream>
  //###################################################################################
  //The following includes created by the CSUN Vex Robotics team using the PROS Library
  //###################################################################################
@@ -88,7 +90,8 @@ void opcontrol(void);
  #include "serial.hpp"
  #include "auton_scripts.hpp"
  #include "robot.hpp"
-
+ #include "print_out_data.hpp"
+ #include "brain_screen.hpp"
 
 #endif
 

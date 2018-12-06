@@ -4,13 +4,13 @@ int reverse = -127;
 int halt = 0;
 void right_Joystick()// Right drive controls
 {
-motor[rightDrive1] = vexRT[Ch2]
-motor[rightDrive2] = vexRT[Ch2]
+motor[rightDrive1] = vexRT[Ch2];
+motor[rightDrive2] = vexRT[Ch2];
 }
 void left_Joystick()// Left drive controls
 {
-motor[leftDrive1] = vexRT[Ch3]
-motor[leftDrive2] = vexRT[Ch3]
+motor[leftDrive1] = vexRT[Ch3];
+motor[leftDrive2] = vexRT[Ch3];
 }
 task main()
 {
@@ -24,7 +24,7 @@ else
  motor[leftDrive1] = halt;
  motor[leftDRive2] = halt;
 }
-if(abs(vexRT[ch2]) > DEAZONE)
+if(abs(vexRT[ch2]) > DEADZONE)
 {
  right_Joystick();
 }

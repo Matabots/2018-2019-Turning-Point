@@ -97,6 +97,17 @@ void shoot_ball()
   flywheel_motor1.move(0);
   flywheel_motor2.move(0);
 }
+void shoot_ball(int speed)
+{
+  flywheel_motor1.move_velocity(speed);
+  flywheel_motor2.move_velocity(speed);
+  delay(3200);
+  intake_in();
+  delay(500);
+  intake_stop();
+  flywheel_motor1.move(0);
+  flywheel_motor2.move(0);
+}
 
 void tester_print_screen(int switcher, int speed)
 {
@@ -124,17 +135,18 @@ void shoot_ball_test()
   intake_in();
   for(int c = 0; c < 13; c++)
   {
+
     flywheel_motor1.move_velocity(rpm - (c * testRatio));
     flywheel_motor2.move_velocity(rpm - (c * testRatio));
     delay(2000);
-    if (next == true)
-    {
-      tester_print_screen(1, rpm);
-    }
-    else
-    {
-      tester_print_screen(0, rpm);
-    }
+    // if (next == true)
+    // {
+    //   tester_print_screen(1, rpm);
+    // }
+    // else
+    // {
+    //   tester_print_screen(0, rpm);
+    // }
     intake_in();
     delay(1000);
     intake_stop();
@@ -142,6 +154,12 @@ void shoot_ball_test()
   }
   flywheel_motor1.move(0);
   flywheel_motor2.move(0);
+}
+
+void flywheel_set(int rpm)
+{
+  flywheel_motor1.move_velocity(rpm);
+  flywheel_motor2.move_velocity(rpm);
 }
 
 //################ Movement##########################
@@ -198,15 +216,7 @@ void move_backward(int inch, int rpm)
 
 void turn_left(int deg)
 {
-  //turns the bot left
-  // tarDeg = deg * 2;
-  // right_motor1.move_absolute(tarDeg, rpm);
-  // right_motor2.move_absolute(tarDeg, rpm);
-  // right_motor3.move_absolute(tarDeg, rpm);
-  // left_motor1.move_absolute(tarDeg, -rpm);
-  // left_motor2.move_absolute(tarDeg, -rpm);
-  // left_motor3.move_absolute(tarDeg, -rpm);
-
+  
 }
 
 void turn_right(int deg)
