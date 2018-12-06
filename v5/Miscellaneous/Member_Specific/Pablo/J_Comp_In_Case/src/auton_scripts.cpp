@@ -8,9 +8,9 @@
 
 void run_auton()
 {
-  auton_tester();
-  //blue_auton_one();
-  //blue_auton_two();
+  //auton_tester();
+  //red_auton_one();
+  //red_auton_two();
   /*switch(choice)
     case 1:
       blue_auton_one();
@@ -34,7 +34,7 @@ void auton_tester()
 
 }
 
-void blue_auton_one()
+void red_auton_one()
 {
   //By Pablo Lepe **********
   // turn_left(90);
@@ -45,7 +45,7 @@ void blue_auton_one()
   move_forward(25, 170);
 }
 
-void blue_auton_two()
+void red_auton_two()
 {
   //by Turtle
   move_fork(-1600, 100);

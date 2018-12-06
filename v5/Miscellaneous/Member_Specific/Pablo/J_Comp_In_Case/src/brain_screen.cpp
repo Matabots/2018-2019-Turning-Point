@@ -137,6 +137,9 @@ void flywheel_control_screen()
   gyro_val = lv_label_create(gyro_meter, NULL);
   lv_obj_align(gyro_val,gyro_meter, LV_ALIGN_CENTER, 0, 0);
 
+  //=============================PID Value Button Matrix
+
+
 }
 
 void rpm_meter_updater()
@@ -198,6 +201,7 @@ void graph_updater()
       if (currentRPMx < graph_max)
       {
         rpm_line->points[currentRPMx] = abs(get_flywheel_avg_rpm());
+        tar_rpm_line->points[currentRPMx] = abs(get_flywheel_target_rpm());
         currentRPMx++;
       }
       else
@@ -208,10 +212,12 @@ void graph_updater()
       }
       priorTime = millis();
     }
-    tar_rpm_line->points[0] = abs(get_flywheel_target_rpm());
-    tar_rpm_line->points[10] = abs(get_flywheel_target_rpm());
 }
 
+void PID_buttons_update()
+{
+
+}
 void screen_updater()
 {
   // line_points = {}
@@ -226,6 +232,8 @@ void screen_updater()
     graph_updater();
     //Gyro updater
     gyro_meter_updater();
+    //KPKIKD button
+    PID_buttons_update();
     delay(20); //every task with a while loop must have this
   }
 }
