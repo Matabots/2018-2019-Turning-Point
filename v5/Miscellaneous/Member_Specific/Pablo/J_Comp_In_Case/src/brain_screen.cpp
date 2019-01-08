@@ -145,7 +145,7 @@ void flywheel_control_screen()
 void rpm_meter_updater()
 {
   flywheel_rpm = get_flywheel_avg_rpm();
-  output_val = std::to_string(flywheel_rpm) + "%";
+  output_val = std::to_string(flywheel_rpm);
   lv_lmeter_set_value(rpm_meter, flywheel_rpm);
   lv_label_set_text(rpm_label, output_val.c_str());
 }
@@ -218,7 +218,7 @@ void PID_buttons_update()
 {
 
 }
-void screen_updater()
+void general_screen_updater()
 {
   // line_points = {}
   startTime = millis();
@@ -238,18 +238,18 @@ void screen_updater()
   }
 }
 
-void draw_test_screen()
+void draw_general_screen()
 {
   //flywheel_set(200);
   // lv_obj_t * label1 =  lv_label_create(lv_scr_act(), NULL);
   // lv_label_set_text(label1, "Hello world!");
   // lv_obj_align(label1, NULL, LV_ALIGN_CENTER, 0, 0);
   flywheel_control_screen();
-  screen_updater();
+  general_screen_updater();
 }
 
 //task method for the program of this whole page
-void run_brain(void* pntr2)
+void run_general_screen(void* pntr2)
 {
-	draw_test_screen();
+	draw_general_screen();
 }

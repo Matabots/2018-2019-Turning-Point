@@ -11,6 +11,7 @@ void run_auton()
   //auton_tester();
   //red_auton_one();
   //red_auton_two();
+  red_auton_three();
   /*switch(choice)
     case 1:
       blue_auton_one();
@@ -57,12 +58,23 @@ void red_auton_two()
 
 }
 
-void red_auton_one()
+void red_auton_three()
+{
+  //
+  shoot_ball(200);
+  delay(2000);
+  if (abs(get_flywheel_avg_rpm()) > 200)
+  {
+    intake_in();
+  }
+}
+
+void blue_auton_one()
 {
 
 }
 
-void red_auton_two()
+void blue_auton_two()
 {
 
 }

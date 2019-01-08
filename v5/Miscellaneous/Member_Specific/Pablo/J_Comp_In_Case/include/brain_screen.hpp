@@ -4,8 +4,8 @@
 
 extern void flywheel_control_screen();
 
-extern void draw_test_screen();
-extern void run_brain(void* pntr2);
+extern void draw_general_screen();
+extern void run_general_screen(void* pntr2);
 
 
 #endif
