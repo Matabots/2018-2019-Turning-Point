@@ -2,10 +2,13 @@
 #define AUTON_COMMANDS_CPP
 
 #include "main.h"
-
+extern int inches_to_degrees(int inches);
+extern int degrees_to_inches(double degrees);
+extern int get_curr_dist_trvld();
 //################Manipulators#########
 extern void move_lift_to(int deg);
 //################End Effectors#########
+extern void intake_stop();
 extern void intake_in();
 extern void intake_out();
 extern void find_flag();

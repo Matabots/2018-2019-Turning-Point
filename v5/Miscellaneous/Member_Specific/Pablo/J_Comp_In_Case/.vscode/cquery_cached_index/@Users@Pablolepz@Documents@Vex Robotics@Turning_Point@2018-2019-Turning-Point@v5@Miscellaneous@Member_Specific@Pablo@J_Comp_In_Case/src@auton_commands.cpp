@@ -5,11 +5,11 @@
 //#################Variables###########################
 //Please add variables in your spaces for easy identification.
 
-//==========Pablo==========
 int x = 9001; //this is an example
 int wheelRadius = 2;
 int tarDeg;
 int testRatio = 5; //
+double avg_dist;
 
 int inches_to_degrees(int inches)
 {
@@ -18,15 +18,27 @@ int inches_to_degrees(int inches)
   return result;
 }
 
-//==========Gisela==========
+int degrees_to_inches(double degrees)
+{
+  //TODO
+  //round the doubles to integers.
 
+  int result = wheelRadius * 3.14 * ((int)degrees)/360;
+}
 
-//==========Omar==========
+int get_curr_dist_trvld ()
+{
+  double total = right_motor1.get_position();
+  total = total + right_motor2.get_position();
+  total = total + right_motor3.get_position();
+  total = total + left_motor1.get_position();
+  total = total + left_motor2.get_position();
+  total = total + left_motor3.get_position();
 
+  avg_dist = total/6;
 
-//==========Daniel==========
-
-
+  return degrees_to_inches(avg_dist);
+}
 //################Manipulators##########################
 
 void move_lift_to(int deg)
@@ -216,7 +228,7 @@ void move_backward(int inch, int rpm)
 
 void turn_left(int deg)
 {
-  
+
 }
 
 void turn_right(int deg)

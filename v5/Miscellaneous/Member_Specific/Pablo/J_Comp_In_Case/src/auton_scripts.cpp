@@ -1,17 +1,18 @@
 #include "main.h"
 #include "auton_scripts.hpp"
 #include "brain_screen.hpp"
-
 //fork at 90 degrees is -1000
 //fork at bottom is
 
 
 void run_auton()
 {
+
+  NEW_red_auton_one();
   //auton_tester();
   //red_auton_one();
   //red_auton_two();
-  red_auton_three();
+  //red_auton_three();
   /*switch(choice)
     case 1:
       blue_auton_one();
@@ -68,6 +69,23 @@ void red_auton_three()
     intake_in();
   }
 }
+
+
+//##########################################################################################
+void NEW_red_auton_one()
+{
+  move_forward(60,90);
+  while (get_curr_dist_trvld() < 30)
+  {
+  }
+  intake_in();
+  delay(5000);
+  intake_out();
+  move_backward(6, 90);
+  delay(3000);
+  intake_stop();
+}
+//##########################################################################################
 
 void blue_auton_one()
 {

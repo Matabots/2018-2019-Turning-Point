@@ -20,7 +20,7 @@
 
 void opcontrol() {
 	// this is the drive
-	Task run_brain_screen (run_brain, (void*) "pntr2", TASK_PRIORITY_DEFAULT, TASK_STACK_DEPTH_DEFAULT, "Flywheel screen");
+	Task run_brain_screen (run_general_screen, (void*) "pntr2", TASK_PRIORITY_DEFAULT, TASK_STACK_DEPTH_DEFAULT, "Flywheel screen");
 
 	move_Chassis();
 

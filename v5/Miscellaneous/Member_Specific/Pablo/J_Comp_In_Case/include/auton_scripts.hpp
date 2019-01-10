@@ -8,6 +8,7 @@ extern void run_auton();
 extern void red_auton_one();
 extern void red_auton_two();
 extern void red_auton_three();
+extern void NEW_red_auton_one();
 // extern void red_auton_three();
 // extern void red_auton_four();
 
