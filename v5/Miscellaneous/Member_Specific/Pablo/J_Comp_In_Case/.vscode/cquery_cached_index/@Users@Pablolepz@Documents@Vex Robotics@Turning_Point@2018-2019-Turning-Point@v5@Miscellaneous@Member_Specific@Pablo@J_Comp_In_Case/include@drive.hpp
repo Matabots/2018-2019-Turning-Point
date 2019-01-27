@@ -7,5 +7,6 @@ extern void screen_placeholder();
 extern void left_motors_go(int rpm);
 extern void right_motors_go(int rpm);
 extern void move_Chassis();
+extern void claw_mot(void* pntr3);
 
 #endif
